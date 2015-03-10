@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model name="gius:simpleModel" xmlns="http://www.alfresco.org/model/dictionary/1.0">
+
+	<description>Example model used for demonstration purposes.</description>
+	<author>Giuseppe</author>
+	<version>1.0</version>
+
+	<imports>
+		<import uri="http://www.alfresco.org/model/dictionary/1.0" prefix="d" />
+		<import uri="http://www.alfresco.org/model/content/1.0" prefix="cm" />
+	</imports>
+
+	<namespaces>
+		<namespace prefix="gius" uri="http://www.giuseppeurso.eu/alfresco/example/1.0" />
+	</namespaces>
+
+<types>
+	<type name="gius:doc_fatture">
+		<title>Documento fatture</title>
+		<parent>cm:content</parent>
+		<properties>
+			<property name="gius:nomefileoriginale">
+				<title>Nome File Originale</title>
+				<type>d:text</type>
+			</property>
+
+			<property name="gius:note">
+				<title>Note</title>
+				<type>d:text</type>
+			</property>
+		</properties>
+	</type>
+</types>
+
+</model>

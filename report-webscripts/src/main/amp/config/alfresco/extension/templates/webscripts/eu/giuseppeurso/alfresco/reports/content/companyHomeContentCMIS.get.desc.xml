@@ -1,0 +1,7 @@
+<webscript>
+<shortname>Report - Company Home content</shortname>
+<description>All content in Company Home using CMIS query</description>
+<url>/eu/gius/alfresco/reports/content/getCompanyHomeContentCMIS</url>
+<format default="html">argument</format>
+<authentication>user</authentication>
+</webscript>

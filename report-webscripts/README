@@ -2,6 +2,7 @@
 README
 ==================
 
+This project contains a series of useful webscripts to perform html reports on Alfresco user, groups, sites, content, folder, tags.
 The webscript "getContentByTypeInFolder" searches content recursively in a given folder filtering by type.
 This project contains an example of custom model which you can use to perform filtered searches. See the model definition in:
 

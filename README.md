@@ -1,12 +1,12 @@
-=============
-Collection of code examples about Alfresco ECM
+===========================================================
+Utilities and examples about Alfresco ECM
 ===========================================================
 **Giuseppe Urso - GITHUB**
 
 Url: https://github.com/giuseppeurso-eu/ 
 ===========================================================
 
-This repository contains the source code of some java samples which refer to:
+The source code contained in this repository refers to:
 
 http://www.giuseppeurso.eu
 

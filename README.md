@@ -6,7 +6,7 @@ Utilities and examples about Alfresco ECM
 Url: https://github.com/giuseppeurso-eu/ 
 ===========================================================
 
-The source code contained in this repository refers to:
+The source code included in this repository refers to:
 
 http://www.giuseppeurso.eu
 

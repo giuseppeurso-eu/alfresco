@@ -12,4 +12,14 @@ This project contains an example of custom model which you can use to perform fi
 
 You can use the Content Wizard in Alfresco-Explorer to test searches with content of type "gius:doc_fatture".
 
+-----------------------------
+Supported Alfresco versions
+-----------------------------
+Community
+4.2.f
+
+Enteprise
+4.2.4
+
+
  

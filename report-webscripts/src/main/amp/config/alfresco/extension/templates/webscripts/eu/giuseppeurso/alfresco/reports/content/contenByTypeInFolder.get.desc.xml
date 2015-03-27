@@ -2,7 +2,7 @@
 <shortname>Report - Content by type in folder</shortname>
 <description>
 <![CDATA[
-Filtered content search by type. Retrieve recursively all content in a folder using CMIS query.
+Content search, filtered by type. Retrieve recursively all content in a folder using CMIS query.
   <BR> 
   <BR>
 Example:

@@ -21,6 +21,15 @@ select cmis:objectId from cmis:document where in_tree('workspace://SpacesStore/f
 select * from reg:protocol where in_tree('workspace://SpacesStore/a4202958-57bd-41ef-824a-c8385128036f') and reg:protocolDate > TIMESTAMP '2016-07-26T00:00:00.000Z' 
 
 ==============
+DB CMIS
+==============
+## Nodes of type acme:streetNumber with a given property
+select cmis:objectId from acme:streetNumber where acme:propertyMail='email@em.it'
+
+## All nodes with a given Type, Property and Aspect (JOIN)
+SELECT * FROM acme:myTypeName AS mytype JOIN acme:myAspect AS myaspect ON mytype.cmis:objectId = myaspect.cmis:objectId WHERE mytype.acme:myFirstProp='foo' and mytype.acme:mySecondProp='joe'
+
+==============
 LUCENE
 ==============
 ## All childs of Test space with type NO-thumbnail

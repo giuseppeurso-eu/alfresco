@@ -7,7 +7,7 @@ The webscript "getContentByTypeInFolder" searches content recursively in a given
 This project contains an example of custom model which you can use to perform filtered searches. See the model definition in:
 
 - test/resources/alfresco/extension/acme-model.xml
-- test/resources/alfresco/extension/ acme-model-context.xml
+- test/resources/alfresco/extension/acme-model-context.xml
 - test/resources/alfresco/extension/web-client-config.xml
 
 You can use the Content Wizard in Alfresco-Explorer to test searches with content of type "gius:doc_fatture".

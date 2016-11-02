@@ -57,8 +57,17 @@ PATH:"/app:company_home/cm:Test//*" AND TYPE:"cm:content"
 ==============
 ## FTS-alfresco
 ==============
-## Properties and Like operator
+## Properties and wildcard
 +TYPE:'acme:protocol' AND +PATH:'/app:company_home/st:sites/cm:acme/cm:protocol//*' AND  +acme:propAddress:'*ciccio*'
+
+## All Zones
+TYPE:"cm:zone"
+
+## All built-in users
+PARENT:"workspace://SpacesStore/AUTH.ALF" AND TYPE:"cm:person"
+
+## All users for the LDAP Zone noderef
+PARENT:"workspace://SpacesStore/9ab9b38a-e3fd-40cf-81a7-0481b3554cb9" AND TYPE:"cm:person"
 
 =================
 ## ARCHIVE Store

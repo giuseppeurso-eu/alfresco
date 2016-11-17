@@ -29,6 +29,15 @@ select cmis:objectId from acme:streetNumber where acme:propertyMail='email@em.it
 ## All nodes with a given Type, Property and Aspect (JOIN)
 SELECT * FROM acme:myTypeName AS mytype JOIN acme:myAspect AS myaspect ON mytype.cmis:objectId = myaspect.cmis:objectId WHERE mytype.acme:myFirstProp='foo' and mytype.acme:mySecondProp='joe'
 
+## Nodes of type acme:protocol in a given folder with order by desc
+SELECT * FROM acme:protocol WHERE IN_FOLDER('workspace://SpacesStore/2ab50069-2c1a-4a7b-b20d-0cd3f4e413de') ORDER BY acme:protocolDate desc
+
+## Nodes of type acme:protocol with property like foo
+SELECT * FROM acme:protocol WHERE acme:protocolNumber LIKE '%foo%' order by acme:protocolDate desc
+
+## Nodes of type acme:protocol with a property date more than 2015-01-01, 12:15
+SELECT * FROM acme:protocol  where  acme:protocolDate > '2015-01-01T12:15:00.000Z'  order by acme:protocolDate desc 
+
 ==============
 LUCENE
 ==============

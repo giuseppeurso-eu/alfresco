@@ -1,37 +1,33 @@
-////// http://docs.alfresco.com/5.0/references/API-JS-getPeople.html
 
-//var nodes = search.luceneSearch("@name:alfresco");
-//
-//for each(var node in nodes) {
-//    logger.log(node.name + " (" + node.typeShort + "): " + node.nodeRef);
-//}
+///////////////////
+// A simple lucene search
+var nodes = search.luceneSearch("@name:alfresco");
+
+for each(var node in nodes) {
+    logger.log(node.name + " (" + node.typeShort + "): " + node.nodeRef);
+}
 
 ///////////////
-// RImozione aspect Hidden su un site
+// Rimozione aspect Hidden su un site
 siteService.getSite("sto_iccs").node.removeAspect("sys:hidden")
 
 
 /////////////
+// Apache-commons trim in JS
 var trim = Packages.org.apache.commons.lang.StringUtils.trim;
-
 var ex = "JOE BLACK Junior";
 logger.log("Fullname: "+ex);
-
-
 if(ex.indexOf(' ') !== -1){
   //var fullname = ex.split("  ");
 //  var cognome = fullname[0];
 //  var nome = fullname[1];
-
   var cognome = trim(ex.substr(0,ex.indexOf(' ')));
-
   var nome = trim(ex.substr(ex.indexOf(' '),ex.length));
   logger.log("Nome: "+nome);
   logger.log("Cognome: "+cognome);
 }
 
-/////////////////////////
-
+//////////////////
 // RIMOZIONE NODI (max results 1000)
 // circa 4/5 min elapsed
 var nodes = search.luceneSearch("+TYPE:\"acme:contact\"");
@@ -47,35 +43,31 @@ for (var i = 0; i < 100; i++) {
 	  logger.log(i+ " Elem: "+nodes[i].name);
 	  nodes[i].remove();
 }
-//////////////////////////
 
-//Resources:
-//http://codebeautify.org/csv-to-xml-json#
+//////////////////////////
+// READ from json content
+// Resources: http://codebeautify.org/csv-to-xml-json#
 
 logger.log("Start import...");
 
+// the json content
 var node = search.findNode("workspace://SpacesStore/a113ae64-9104-4056-9405-1cc1ac44b48f"), 
   adb = search.findNode("workspace://SpacesStore/6773ab4b-127c-4d45-917a-925d477c352e"), 
-  json = jsonUtils.toObject('{"csv":'+node.content+'}').csv,
+  json = jsonUtils.toObject(node.content),
   trim = Packages.org.apache.commons.lang.StringUtils.trim;
 
-for(var i=0;i<json.size();i++){
-  var contact = json.get(i), tels = [], contactNode = adb.createNode(null, "acme:contact");
-  
+for(var i in json){
+  var contact = json[i], tels = [], contactNode = adb.createNode(null, "acme:contact");
   if(contact.title && (contact.title=="DIP" || contact.title=="PRF")){
-      contactNode.properties["acme:personType"] = "pf";
-      
+      contactNode.properties["acme:personType"] = "pf";     
 //      if(contact.name.indexOf('  ') !== -1){
 //      	//var fullname = contact.name.split("  ");
 //      	contactNode.properties["acme:surname"] = trim(contact.name.substr(0, contact.name.indexOf('  ')));
 //      	contactNode.properties["acme:name"] = trim(contact.name.substr(contact.name.indexOf('  '),contact.name.length));
-//      }
-      
-      
+//      }  
   } else {
       contactNode.properties["acme:personType"] = "pg";
   }
- 
   contactNode.properties["acme:title"] = trim(contact.title);
   contactNode.properties["acme:address"] = trim(contact.address); 
   contactNode.save();
@@ -83,17 +75,16 @@ for(var i=0;i<json.size();i++){
 
 
 /////////////////////////
-
 /// ITERAZIONI SU NODI
 var rootFolder = search.findNode("workspace://SpacesStore/6e9fed49-c897-4a7f-afd5-bbdc32065477");
-
-logger.log("childs: "+rootFolder.children.length);
+logger.log("TOTAL childs: "+rootFolder.children.length);
 //logger.log("child name: "+rootFolder.childFileFolders(true,false)[0].name);
 
+// Less fast
 for(var i=0;i<rootFolder.children.length;i++){
 logger.log("child name: "+rootFolder.children[i].name);
 }
-
+// More fast
 for each (el in rootFolder.children)
 {
    logger.log("child name: "+el.name);

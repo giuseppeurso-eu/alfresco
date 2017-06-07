@@ -29,7 +29,7 @@ select cmis:objectId from acme:streetNumber where acme:propertyMail='email@em.it
 ## All nodes with a given Type, Property and Aspect (JOIN)
 SELECT * FROM acme:myTypeName AS mytype JOIN acme:myAspect AS myaspect ON mytype.cmis:objectId = myaspect.cmis:objectId WHERE mytype.acme:myFirstProp='foo' and mytype.acme:mySecondProp='joe'
 
-## Nodes of type acme:protocol in a given folder with order by desc
+## Nodes of type acme:protocol in a given folder (NOT recursively) with order by desc
 SELECT * FROM acme:protocol WHERE IN_FOLDER('workspace://SpacesStore/2ab50069-2c1a-4a7b-b20d-0cd3f4e413de') ORDER BY acme:protocolDate desc
 
 ## Nodes of type acme:protocol with property like foo
@@ -37,6 +37,14 @@ SELECT * FROM acme:protocol WHERE acme:protocolNumber LIKE '%foo%' order by acme
 
 ## Nodes of type acme:protocol with a property date more than 2015-01-01, 12:15
 SELECT * FROM acme:protocol  where  acme:protocolDate > '2015-01-01T12:15:00.000Z'  order by acme:protocolDate desc 
+
+
+==============
+## DB-AFTS
+==============
+## Nodes with type Category and exact cm:name=foo 
++TYPE:"cm:category" AND =cm:name:"foo"
+
 
 ==============
 LUCENE
@@ -64,6 +72,14 @@ PATH:"/app:company_home/cm:Test//*" AND TYPE:"cm:content"
 +PATH:"/app:company_home/st:sites/cm:ibm/cm:foo/cm:Acme_x0020_Dev_x0020_4//*" +TYPE:"acme:propAddress" +ASPECT:"acme:trashed"
 
 ==============
+LUCENE in LUKE
+==============
+Tab > Search > Expression > ciccio
+Analyzer > SimpleAnalyzer or StandardAanlyzer
+Defautl field > select the custom properties where to search {http://www.inv.it/model/inv/1.0}invoice
+Clic Search
+
+==============
 ## FTS-alfresco
 ==============
 ## Properties and wildcard
@@ -77,6 +93,18 @@ PARENT:"workspace://SpacesStore/AUTH.ALF" AND TYPE:"cm:person"
 
 ## All users for the LDAP Zone noderef
 PARENT:"workspace://SpacesStore/9ab9b38a-e3fd-40cf-81a7-0481b3554cb9" AND TYPE:"cm:person"
+
+## All dates MIN TO MAX
++PATH:"/app:company_home/st:sites/cm:lar/cm:pec/cm:IBM_x0020_Dev_x0020_4//*" AND +TYPE:"acme:mail" AND +ASPECT:"acme:trashed" AND +acme:mailDate:[MIN TO MAX]
+
+## Range of date MIN TO Iso8601 Date with UTC (Zulu time)
++PATH:"/app:company_home/st:sites/cm:lar/cm:pec/cm:IBM_x0020_Dev_x0020_4//*" AND +TYPE:"acme:mail" AND +ASPECT:"acme:trashed" AND +acme:mailDate:[MIN TO 2016-08-25T23:59:59.000Z]
+
+## Range of date MIN TO Iso8601 Date with UTC (offset +hh:mm or -hh:mm)
++PATH:"/app:company_home/st:sites/cm:lar/cm:pec/cm:IBM_x0020_Dev_x0020_4//*" AND +TYPE:"acme:mail" AND +ASPECT:"acme:trashed" AND +acme:mailDate:[MIN TO '2016-08-25T23:59:59+02:00']
+
+## Category
++TYPE:'cm:category' AND +@cm\:name:'myCategoryName'
 
 =================
 ## ARCHIVE Store

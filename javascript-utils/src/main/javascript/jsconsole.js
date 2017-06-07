@@ -27,6 +27,12 @@ if(ex.indexOf(' ') !== -1){
   logger.log("Cognome: "+cognome);
 }
 
+
+//////////////////
+// Creating Content of a given Type
+var node1 = userhome.createNode('test1.txt', 'cm:content');
+
+
 //////////////////
 // RIMOZIONE NODI (max results 1000)
 // circa 4/5 min elapsed
@@ -190,7 +196,7 @@ while(maxResultsPerPage==1000){
     language: "cmis-alfresco",  
     page: paging 
   };
-  currentResults = search.query(def);
+  var currentResults = search.query(def);
   maxResultsPerPage = currentResults.length;
   //for (var el in currentResults) {
   //  logger.log("Node ID= "+currentResults[el].nodeRef);
@@ -206,7 +212,7 @@ while(maxResultsPerPage==1000){
 }
 logger.log("");
 logger.log("TOTAL RESULTS: "+skipResults);
-finish = new Date();
+var finish = new Date();
 logger.log("Finished at: "+finish);
 
 ////////////
@@ -228,11 +234,11 @@ print("TOTAL:"+counter);
 ////////////
 
 
-////////  SOLO GLI UTENTI BUILT-IN ALFRESCO 
+////////  SOLO GLI UTENTI BUILT-IN ALFRESCO (max 1000 results)
 var nodes = search.luceneSearch("PATH:\"/sys:system/sys:zones/cm:AUTH.ALF/*\" AND TYPE:\"cm:person\"");
 for each(var node in nodes) {
   logger.log(node.properties["cm:userName"] + " (" + node.typeShort + "): " + node.nodeRef );
- ;
+ 
 }
 logger.log("TOTAL: "+nodes.length);
 
@@ -368,6 +374,115 @@ var n = search.findNode("workspace://SpacesStore/7ed30a76-46e5-4208-a256-4d24606
 logger.log(n.name);
 n.addAspect('acme:trashed');
 n.removeAspect('acme:trashed');
+n.hasAspect('acme:trashed');
 
+
+////////////////// Datetime e ISO8601 Date
+//////////////////
+//Print: Tue Feb 21 2017 11:06:52 GMT+0100 (CET)
+var date = new Date();
+logger.log("Date: "+date);
+
+// Print: 1487671677960
+var timeInMillisecs = date.getTime();
+logger.log("Millsec: "+timeInMillisecs);
+
+// Print: 2017-02-21T11:08:55.466+01:00
+var ISODate = utils.toISO8601(timeInMillisecs);
+logger.log("Iso Date: "+ISODate);
+
+// Print: Tue Feb 21 2017 11:06:52 CET 2017
+var origDate = utils.fromISO8601(ISODate);
+logger.log("Oringinal Date: "+origDate);
+
+// Date TO Iso Date
+var date = new Date();
+var ISODate = utils.toISO8601(date);
+
+
+////////////////// Create multiple nodes
+/////////////////
+var nodesNumb=10;
+var dateTime = new Date("2010","10","30","21","30","00");
+for(i=0; i < nodesNumb; i++){
+  //logger.log("Element: "+i);
+  var testNode = testFolder.createNode(null, "pec:mail");
+  logger.log("Date: "+testNode.properties["cm:modified"]);
+  testNode.addAspect("pec:trashed");
+  testNode.properties["pec:mailDate"]=dateTime;
+  testNode.save();
+}
+
+
+////////////////// Query massiva su DateTime
+//////////////////
+var maxDate='2016-08-25T23:59:59+02:00';
+//var query="+PATH:\"/app:company_home/cm:test-trashed//*\" AND +TYPE:\"pec:mail\" AND +ASPECT:\"pec:trashed\" AND +pec:mailDate:[MIN TO MAX]";
+var query='+PATH:"/app:company_home/cm:test-trashed//*" AND +TYPE:"pec:mail" AND +ASPECT:"pec:trashed" AND +pec:mailDate:[MIN TO \''+maxDate+'\']';
+
+var maxResultsPerPage=1000;
+var skipResults=0;
+var page=0;
+while(maxResultsPerPage==1000){
+logger.log("PAGE: "+(page+1));
+var paging = 
+{ 
+  maxItems: 1000, 
+  skipCount: skipResults
+}; 
+logger.log("maxItems: "+maxResultsPerPage);
+logger.log("skipCount: "+skipResults);
+
+var def = 
+{ 
+  query: query, 
+  language: "fts-alfresco",  
+  page: paging 
+};
+var currentResults = search.query(def);
+maxResultsPerPage = currentResults.length;
+//for (var el in currentResults) {
+//  logger.log("Node ID= "+currentResults[el].nodeRef);
+//  logger.log("Node Name= "+currentResults[el].properties["cm:name"]);
+//  logger.log(currentResults[el].nodeRef+"|"+currentResults[el].properties["cm:name"]+"|"+currentResults[el].properties["acme:subject"]);
+//}
+
+logger.log("Results per Page: "+maxResultsPerPage);
+skipResults += maxResultsPerPage;
+logger.log("");
+logger.log("----------------------");
+page++;
+}
+logger.log("");
+logger.log("TOTAL RESULTS: "+skipResults);
+var finish = new Date();
+logger.log("Finished at: "+finish);
+
+
+
+////////////////////// Classification and Categories
+//////////////////////
+
+
+var classificationAspects = classification.getAllClassificationAspects();
+logger.log("Classification Aspects: "+classificationAspects.length);
+for(var i in classificationAspects){
+  logger.log(" "+classificationAspects[i]);
+}
+logger.log("");
+
+var categoryRootNodesGenClass = classification.getRootCategories("cm:generalclassifiable");
+logger.log("All Root Category Nodes in 'cm:generalclassifiable' :"+categoryRootNodesGenClass.length);
+for(var i in categoryRootNodesGenClass){
+  logger.log(" "+categoryRootNodesGenClass[i].name+" - TYPE: "+categoryRootNodesGenClass[i].type);
+}
+logger.log("");
+
+var categoryNodesGenClass = classification.getAllCategoryNodes("cm:generalclassifiable");
+logger.log("All Category Nodes in 'cm:generalclassifiable' : "+categoryNodesGenClass.length);
+for(var i in categoryNodesGenClass){
+  //logger.log(" "+categoryNodesGenClass[i].name+" - TYPE: "+categoryNodesGenClass[i].type);
+}
+logger.log("");
 
 

@@ -85,6 +85,9 @@ Clic Search
 ## Properties and wildcard
 +TYPE:'acme:protocol' AND +PATH:'/app:company_home/st:sites/cm:acme/cm:protocol//*' AND  +acme:propAddress:'*ciccio*'
 
+## All documents with a given aspect and property
++PATH:'/app:company_home/st:sites/cm:krmp/cm:documentLibrary/cm:MyFolder//*' AND +ASPECT:"acme:archived" AND +acme:emailId:'*06577000489*'
+ 
 ## All Zones
 TYPE:"cm:zone"
 
@@ -97,10 +100,10 @@ PARENT:"workspace://SpacesStore/9ab9b38a-e3fd-40cf-81a7-0481b3554cb9" AND TYPE:"
 ## All dates MIN TO MAX
 +PATH:"/app:company_home/st:sites/cm:lar/cm:pec/cm:IBM_x0020_Dev_x0020_4//*" AND +TYPE:"acme:mail" AND +ASPECT:"acme:trashed" AND +acme:mailDate:[MIN TO MAX]
 
-## Range of date MIN TO Iso8601 Date with UTC (Zulu time)
+## Range of dateTime MIN TO Iso8601 Date with UTC (Zulu time)
 +PATH:"/app:company_home/st:sites/cm:lar/cm:pec/cm:IBM_x0020_Dev_x0020_4//*" AND +TYPE:"acme:mail" AND +ASPECT:"acme:trashed" AND +acme:mailDate:[MIN TO 2016-08-25T23:59:59.000Z]
 
-## Range of date MIN TO Iso8601 Date with UTC (offset +hh:mm or -hh:mm)
+## Range of dateTime MIN TO Iso8601 Date with UTC (offset +hh:mm or -hh:mm)
 +PATH:"/app:company_home/st:sites/cm:lar/cm:pec/cm:IBM_x0020_Dev_x0020_4//*" AND +TYPE:"acme:mail" AND +ASPECT:"acme:trashed" AND +acme:mailDate:[MIN TO '2016-08-25T23:59:59+02:00']
 
 ## Category

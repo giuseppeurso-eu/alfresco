@@ -8,7 +8,7 @@ for each(var node in nodes) {
 }
 
 ///////////////
-// Rimozione aspect Hidden su un site
+// Removing aspect Hidden 
 siteService.getSite("sto_iccs").node.removeAspect("sys:hidden")
 
 
@@ -39,8 +39,7 @@ var doc.specializeType("acme:duffy");
 
 
 //////////////////
-// RIMOZIONE NODI (max results 1000)
-// circa 4/5 min elapsed
+// Removing Nodes (max results 1000, about 4/5 min elapsed)
 var nodes = search.luceneSearch("+TYPE:\"acme:contact\"");
 var counter=0;
 for each(var node in nodes) {
@@ -49,14 +48,15 @@ for each(var node in nodes) {
   counter++;
 }
 
-// Rimozione con max length fissa
-for (var i = 0; i < 100; i++) {
+// Removing nodes with limit
+var limit = 100;
+for (var i = 0; i < limit; i++) {
 	  logger.log(i+ " Elem: "+nodes[i].name);
 	  nodes[i].remove();
 }
 
 //////////////////////////
-// READ from json content
+// Reading from json content
 // Resources: http://codebeautify.org/csv-to-xml-json#
 
 logger.log("Start import...");
@@ -86,7 +86,7 @@ for(var i in json){
 
 
 /////////////////////////
-/// ITERAZIONI SU NODI
+/// Looping through nodes
 var rootFolder = search.findNode("workspace://SpacesStore/6e9fed49-c897-4a7f-afd5-bbdc32065477");
 logger.log("TOTAL childs: "+rootFolder.children.length);
 //logger.log("child name: "+rootFolder.childFileFolders(true,false)[0].name);
@@ -102,7 +102,7 @@ for each (el in rootFolder.children)
 }
 
 ////////////////////////////
-/// CONTAINER
+/// Container
 siteService.getSite("sto_iccs").node;
 logger.log(siteService.getSite("sto_iccs").node.nodeRef);
 
@@ -112,15 +112,8 @@ logger.log(siteService.getSite("sto_iccs").getContainer("folder_name").nodeRef);
 siteService.getSite("sto_iccs").getContainer("folder_name").createFolder("Test");
 
 
-////////////////////////////
-/// COUNTER
-var containerReg = siteService.getSite("test").getContainer("folder_name");
-logger.log(containerReg.nodeRef);
-containerReg.properties["acme:counter"]=11;
-containerReg.save();
-
 //////////////////////////
-/// RIMOZIONE NODO
+/// Removing single node
 var n = search.findNode("workspace://SpacesStore/113eb8d0-b8ad-4f6d-959a-5b2781064a99");
 logger.log(n.name);
 n.remove();
@@ -139,7 +132,7 @@ for ( var el in elements) {
 }
 
 
-///// RICERCA in una folder (MAX 1000)
+///// Searching in folder (MAX 1000)
 var base = siteService.getSite("site_name").getContainer("folder_name");
 var query = "SELECT * FROM acme:protocol where in_tree('"+base+"')";
 
@@ -154,7 +147,7 @@ for (var el in elements) {
 }
 
 
-//////////////////// MOVE Folders 
+//////////////////// Moving Folders 
 var rootScarico = search.findNode("workspace://SpacesStore/db21314b-b54a-4ff3-b0e6-0afb1de4590e");
 var childs=rootScarico.getChildren();
 logger.log("TOT SOURCE CHILDS:"+childs.length);
@@ -176,7 +169,7 @@ logger.log("");
 logger.log("TOTAL MOVED: "+(totalMoved+1));
 
 
-////// LISTA PAGINATA PER RICERCHE MASSIVE 
+////// Massive searches and Paginated list  
 /////
 var base = siteService.getSite("mysite").getContainer("folder_name");
 var q = "SELECT * FROM acme:protocol where in_tree('"+base.nodeRef+"')";
@@ -223,8 +216,8 @@ logger.log("Finished at: "+finish);
 ////////////
 ///////////
 
-/////////// TUTTI GLI UTENTI - getPeople(filter, maxResults) get the collection of people stored in the repository.
-/////////// Il filtro cerca su firstName, lastName e username
+/////////// All Users - getPeople(filter, maxResults) get the collection of people stored in the repository.
+/////////// It searches on firstName, lastName e username
 var user;
 var nodes = people.getPeople(null,0);
 counter=0;
@@ -239,7 +232,7 @@ print("TOTAL:"+counter);
 ////////////
 
 
-////////  SOLO GLI UTENTI BUILT-IN ALFRESCO (max 1000 results)
+////////  Only BUILT-IN Alfresco Users (max 1000 results)
 var nodes = search.luceneSearch("PATH:\"/sys:system/sys:zones/cm:AUTH.ALF/*\" AND TYPE:\"cm:person\"");
 for each(var node in nodes) {
   logger.log(node.properties["cm:userName"] + " (" + node.typeShort + "): " + node.nodeRef );
@@ -247,7 +240,7 @@ for each(var node in nodes) {
 }
 logger.log("TOTAL: "+nodes.length);
 
-////////  SOLO GLI UTENTI LDAP  (ldap1 e' il nome dato al subsystem esterno, vedi global.properties)
+////////  Only LDAP Users  (ldap1 is the name of the declared subsystem in global.properties)
 var nodes = search.luceneSearch("PATH:\"/sys:system/sys:zones/cm:AUTH.EXT.ldap1/*\" AND TYPE:\"cm:person\"");
 for each(var node in nodes) {
   logger.log(node.properties["cm:userName"] + " (" + node.typeShort + "): " + node.nodeRef );
@@ -256,14 +249,13 @@ for each(var node in nodes) {
 logger.log("TOTAL: "+nodes.length);
 
 
-////////////// CREA UTENTE
+////////////// Creating User
 /////////////
 //createPerson(username, firstName, lastName, emailAddress, password, setAccountEnabled)
-
 people.createPerson("test.test", "Test", "Svi", "test@em.it", "test", true);
 
 
-/////////// ASSOCIATIONS (caso source assocs)
+/////////// Associations (source assocs)
 ///////////
 var user;
 var nodes = people.getPeople(null,0);
@@ -292,7 +284,7 @@ counter++;
 print("TOTAL USERS:"+counter);     
 
 
-/////////// QUERY CMIS con filtro proprieta NULL
+/////////// CMIS Query (NULL filtered)
 ///////////
 var container = siteService.getSite("mysite").getContainer("folder_name");
 //var q = "SELECT * FROM acme:protocol WHERE in_tree('"+container.nodeRef+"')";
@@ -312,7 +304,7 @@ logger.log("TOTAL: "+total);
 
 
 
-/////////// TAG e TAG SCOPE
+/////////// TAG and TAG SCOPE
 ///////////
 // Prendo il nodo di una email 
 var n =  search.findNode("workspace://SpacesStore/52563a60-cf3a-426f-a5da-e51f6596a4f2");
@@ -321,7 +313,7 @@ print(n.tagScope.tags);
 n.tagScope.refresh();
 
 
-/////////// TAG SCOPE caso su tutti gli account nel container folder_name
+/////////// TAG SCOPE 
 ///////////
 var pecFolder = siteService.getSite("mysite").getContainer("folder_name");
 print(pecFolder.name);
@@ -338,7 +330,7 @@ logger.log("");
 logger.log("TOTALE TagScope aggiornati: "+count);
 
 
-/////////// TUTTE le uo di un site
+/////////// All UO of a site
 ///////////
 var base = siteService.getSite("mysite").getContainer("folder_name");
 var q = "SELECT * FROM acme:nodeUo where in_tree('"+base.nodeRef+"')";
@@ -353,7 +345,7 @@ for (var el in elements) {
 }
 
 
-////////////// Tutte le associazioni acme:protocolDocument di un nodo
+////////////// All Assocs acme:protocolDocument of a given node
 //////////////
 var nodes = search.luceneSearch("+TYPE:\"acme:protocol\"");
 var counter=0;
@@ -373,7 +365,7 @@ for each(var node in nodes) {
 }
 
 
-////////////// Aspetti
+////////////// Aspects
 //////////
 var n = search.findNode("workspace://SpacesStore/7ed30a76-46e5-4208-a256-4d246064f254");
 logger.log(n.name);
@@ -382,7 +374,7 @@ n.removeAspect('acme:trashed');
 n.hasAspect('acme:trashed');
 
 
-////////////////// Datetime e ISO8601 Date
+////////////////// Datetime and ISO8601 Date
 //////////////////
 //Print: Tue Feb 21 2017 11:06:52 GMT+0100 (CET)
 var date = new Date();
@@ -419,7 +411,7 @@ for(i=0; i < nodesNumb; i++){
 }
 
 
-////////////////// Query massiva su DateTime
+////////////////// Massive Query on DateTime
 //////////////////
 var maxDate='2016-08-25T23:59:59+02:00';
 //var query="+PATH:\"/app:company_home/cm:test-trashed//*\" AND +TYPE:\"pec:mail\" AND +ASPECT:\"pec:trashed\" AND +pec:mailDate:[MIN TO MAX]";

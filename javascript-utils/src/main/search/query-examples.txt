@@ -115,5 +115,3 @@ PARENT:"workspace://SpacesStore/9ab9b38a-e3fd-40cf-81a7-0481b3554cb9" AND TYPE:"
 ## Change the store name in the Node Browser page (the ID is the same as the workspace store)
 archive://SpacesStore/3ad2a96e-1725-4547-aded-ea637829db6a
 
-
-

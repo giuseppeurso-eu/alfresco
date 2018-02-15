@@ -32,6 +32,11 @@ if(ex.indexOf(' ') !== -1){
 // Creating Content of a given Type
 var node1 = userhome.createNode('test1.txt', 'cm:content');
 
+/////////////////
+// Changing type
+var doc = search.findNode("xxxx");
+var doc.specializeType("acme:duffy");
+
 
 //////////////////
 // RIMOZIONE NODI (max results 1000)

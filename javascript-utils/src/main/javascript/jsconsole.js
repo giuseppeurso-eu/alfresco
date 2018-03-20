@@ -483,3 +483,19 @@ for(var i in categoryNodesGenClass){
 logger.log("");
 
 
+////// Removing thumbnails (type doclib and  webpreview)
+//////
+var nodes = search.luceneSearch("PATH:\"/app:company_home/cm:Test//*\" AND TYPE:\"cm:thumbnail\"");
+for each(var node in nodes) {
+  logger.log(node.name + " (" + node.typeShort + "): " + node.nodeRef );
+  node.remove();
+}
+
+
+////// Count nodes in Company Home by using 'recurse'
+//////
+var count = 0;
+recurse(companyhome, function(node) {
+					  if (node.isDocument) count++; 
+					});
+logger.log(count);

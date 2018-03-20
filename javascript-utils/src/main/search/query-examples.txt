@@ -45,6 +45,15 @@ SELECT * FROM acme:protocol  where  acme:protocolDate > '2015-01-01T12:15:00.000
 ## Nodes with type Category and exact cm:name=foo 
 +TYPE:"cm:category" AND =cm:name:"foo"
 
+## Ranges are not supported !
+## https://community.alfresco.com/people/andy1/blog/2017/06/23/transactional-metadata-query-tmdq
+
+## Date and wildcard after minutes (escaped)
++TYPE:"myModel:invoice" AND =myModel:date:2018-03-07T10\:06*
+
+## Type and NOT aspect
++TYPE:"myModel:invoice" AND -ASPECT:"myModel:trashed" 
+
 
 ==============
 LUCENE
@@ -87,6 +96,9 @@ Clic Search
 
 ## All documents with a given aspect and property
 +PATH:'/app:company_home/st:sites/cm:krmp/cm:documentLibrary/cm:MyFolder//*' AND +ASPECT:"acme:archived" AND +acme:emailId:'*06577000489*'
+
+## All documents without a given aspect 
++PATH:'/app:company_home/st:sites/cm:krmp/cm:documentLibrary/cm:MyFolder//*' AND -ASPECT:"acme:archived"
  
 ## All Zones
 TYPE:"cm:zone"

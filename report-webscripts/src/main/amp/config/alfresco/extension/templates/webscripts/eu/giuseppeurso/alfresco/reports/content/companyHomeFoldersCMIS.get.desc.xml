@@ -1,7 +1,0 @@
-<webscript>
-<shortname>Report - Folders in Company Home</shortname>
-<description>All folders in Company Home using CMIS query</description>
-<url>/eu/gius/alfresco/reports/content/getCompanyHomeFoldersCMIS</url>
-<format default="html">argument</format>
-<authentication>user</authentication>
-</webscript>

@@ -1,7 +1,0 @@
-<webscript>
-    <shortname>Purge Alfresco Archive</shortname>
-    <description>Delete all nodes into the Archive SpaceStore</description>
-    <url>/eu/gius/utils/archive/purge</url>
-    <authentication>user</authentication>
-    <format default="html"></format>
-</webscript>

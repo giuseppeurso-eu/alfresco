@@ -1,7 +1,0 @@
-<webscript>
-<shortname>Report - All groups</shortname>
-<description>Retrieve user groups excluding the names which contain string "site"</description>
-<url>/eu/gius/alfresco/reports/groups/getGroups</url>
-<format default="html">argument</format>
-<authentication>user</authentication>
-</webscript>

@@ -1,7 +1,0 @@
-<webscript>
-<shortname>Report - All Tags</shortname>
-<description>All tags in SpacesStore</description>
-<url>/eu/gius/alfresco/reports/content/getTags</url>
-<format default="html">argument</format>
-<authentication>user</authentication>
-</webscript>

@@ -1,7 +1,0 @@
-<webscript>
-<shortname>Report - All sites</shortname>
-<description>Retrive all sites in Alfresco</description>
-   <url>/eu/gius/alfresco/reports/sites/getSites</url>
-   <format default="html">argument</format>
-   <authentication>user</authentication>
-</webscript>

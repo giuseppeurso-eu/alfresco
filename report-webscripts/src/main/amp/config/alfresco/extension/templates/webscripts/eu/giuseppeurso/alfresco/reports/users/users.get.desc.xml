@@ -1,7 +1,0 @@
-<webscript>
-<shortname>Report - All users</shortname>
-<description>Retrieve all the Alfresco users</description>
-   <url>/eu/gius/alfresco/reports/users/getUsers</url>
-   <format default="html">argument</format>
-   <authentication>user</authentication>
-</webscript>
